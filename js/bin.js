@@ -1,19 +1,19 @@
 const allProducts = {
-    "1Product":123,
-    "2Product":234,
-    "3Product":345,
-    "4Product":456,
-    "5Product":567,
-    "6Product":678,
-    "7Product":789,
-    "8Product":890,
-    "9Product":901,
-    "10Product":12,
-    "11Product":1234,
-    "12Product":2345,
-    "13Product":3456,
-    "14Product":4567,
-    "15Product":5678
+    "чашка":123,
+    "ложка":234,
+    "миска":345,
+    "тарелка":456,
+    "миксер":567,
+    "шмиксер":678,
+    "товар 666":789,
+    "кольца":890,
+    "ноутбук":901,
+    "телефон":12,
+    "монитор":1234,
+    "оригами":2345,
+    "ютуб":3456, 
+    "кря":4567,
+    "пис":5678
 }
 
 let usersProducts=[];
@@ -25,16 +25,40 @@ function addProductToBin(...args){
     });
     
 }  
-function countBasketPrice(...args){
-    args.forEach(element => {
-        totalPrice = allProducts[element]++;
-    })
+function getTotalyPrice(){
+    let output=0;
+    usersProducts.forEach(item=>{
+        output+=allProducts[item];
+    });
+    return output;
 }
 
 
-addProductToBin("2Product","3Product","5Product");
-countBasketPrice("2Product","3Product","5Product");
 
-console.log(usersProducts);
-console.log(totalPrice);
+addProductToBin("чашка","тарелка","монитор","ютуб","товар 666","ноутбук");
+
+
+var binContainer = document.querySelector(".container");
+let template= binContainer.appendChild(document.createElement("div"));
+template.textContent="ТОВАР    :    Цена";
+
+let liChilds= binContainer.appendChild(document.createElement("div"));
+liChilds.className= binContainer.className+"__liChild";
+
+
+
+usersProducts.forEach(item=>{
+    liChilds.appendChild(document.createElement("div"));
+    
+    let q = usersProducts.indexOf(item);
+    liChilds.childNodes[q].textContent =`${item.toUpperCase()}    :    ${allProducts[item]} евро`;
+    liChilds.childNodes[q].className=binContainer.className+"__item";
+
+});
+
+
+let totalyPrice= binContainer.appendChild(document.createElement("div"));
+totalyPrice.className=binContainer.className+"__totalyPrice";
+
+totalyPrice.textContent = `Общая стоимость корзины:  ${getTotalyPrice()}. Всего товаров ${usersProducts.length} штук.`;
 
